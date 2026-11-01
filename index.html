@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Một Góc Dành Cho Âm Nhạc</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Georgia, "Times New Roman", serif;
+      color: #fff8f3;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(255,190,190,.22), transparent 28%),
+        linear-gradient(135deg, #2b1025, #5b1e3d 48%, #20152e);
+      overflow-x: hidden;
+    }
+    .stars span {
+      position: fixed; bottom: -40px; z-index: 0; pointer-events: none;
+      color: #ffd9df; opacity: .8; font-size: 18px;
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      from { transform: translateY(0) rotate(0deg); opacity: 0; }
+      15% { opacity: .85; }
+      to { transform: translateY(-115vh) rotate(300deg); opacity: 0; }
+    }
+    .wrap {
+      position: relative; z-index: 1; width: min(940px, 92%);
+      margin: 38px auto; text-align: center;
+    }
+    .eyebrow { color: #ffd6df; letter-spacing: 4px; font-size: 13px; }
+    h1 {
+      margin: 12px 0 8px; color: #ffe5c8;
+      font-size: clamp(30px, 6vw, 54px); line-height: 1.12;
+      text-shadow: 0 3px 18px rgba(255,150,180,.45);
+    }
+    .subtitle { color: #ffe0e7; font-size: 18px; margin: 0 0 24px; }
+    .cover {
+      display: block; width: 100%; max-height: 470px; object-fit: cover;
+      border: 5px solid rgba(255,232,220,.8); border-radius: 22px;
+      box-shadow: 0 15px 45px rgba(0,0,0,.38);
+    }
+    .message {
+      margin: 26px auto 22px; max-width: 720px;
+      font-size: clamp(18px, 2.8vw, 23px); line-height: 1.7;
+      color: #fff0e9;
+    }
+    .player {
+      max-width: 620px; margin: 0 auto; padding: 22px;
+      border: 1px solid rgba(255,226,230,.45); border-radius: 20px;
+      background: rgba(255,255,255,.10); backdrop-filter: blur(8px);
+    }
+    .song { font-size: 22px; color: #ffe3bd; margin-bottom: 5px; }
+    .artist { font-family: Arial, sans-serif; font-size: 13px; color: #f8d4df; margin-bottom: 18px; }
+    button {
+      border: 0; border-radius: 30px; padding: 12px 25px; margin: 4px;
+      font-size: 16px; font-weight: bold; cursor: pointer;
+      color: #4a1833; background: #ffe1c9;
+    }
+    button:hover { background: #fff2e8; }
+    audio { width: 100%; margin-top: 15px; }
+    .footer { margin: 25px 0 35px; color: #f7cbd8; font-size: 14px; }
+    @media (prefers-reduced-motion: reduce) {
+      .stars span { animation: none; display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" aria-hidden="true">
+    <span style="left:7%;animation-duration:13s">♫</span>
+    <span style="left:19%;animation-duration:17s;animation-delay:2s">✿</span>
+    <span style="left:34%;animation-duration:15s;animation-delay:4s">♪</span>
+    <span style="left:51%;animation-duration:19s;animation-delay:1s">♡</span>
+    <span style="left:68%;animation-duration:14s;animation-delay:3s">♫</span>
+    <span style="left:83%;animation-duration:18s;animation-delay:5s">✿</span>
+    <span style="left:94%;animation-duration:16s;animation-delay:2s">♪</span>
+  </div>
+
+  <main class="wrap">
+    <div class="eyebrow">CHÀO MỪNG BẠN GHÉ THĂM</div>
+    <h1>🎵 MỘT GÓC DÀNH CHO ÂM NHẠC 🎵</h1>
+    <p class="subtitle">Nơi giai điệu chạm đến trái tim 🌹</p>
+
+    <img class="cover" src="images/anh-bia-am-nhac.png"
+         alt="Ảnh bìa Một Góc Dành Cho Âm Nhạc">
+
+    <p class="message">
+      Xin chào bạn! Cảm ơn bạn đã ghé thăm góc nhỏ này.
+      Mong rằng những giai điệu dịu dàng sẽ mang đến cho bạn
+      niềm vui, sự bình yên và những phút giây thư giãn. 💗
+    </p>
+
+    <section class="player" aria-label="Trình phát nhạc">
+      <div class="song">🌸 Sắc Hoa Màu Nhớ 🌸</div>
+      <div class="artist">Bản cover Rumba</div>
+      <button id="playBtn" type="button">▶ Phát nhạc</button>
+      <button id="pauseBtn" type="button">Ⅱ Tạm dừng</button>
+      <audio id="music" controls loop="metadata">
+        <source src="audio/sac-hoa-mau-nho.mp3" type="audio/mpeg">
+        Trình duyệt của bạn chưa hỗ trợ phát âm thanh.
+      </audio>
+    </section>
+
+    <div class="footer">🌹 Chúc bạn luôn vui vẻ và tìm thấy yêu thương trong âm nhạc 🌹</div>
+  </main>
+
+  <script>
+    const music = document.getElementById("music");
+    document.getElementById("playBtn").addEventListener("click", async () => {
+      try { await music.play(); }
+      catch (error) { alert("Bạn hãy bấm nút phát trên thanh nhạc để nghe nhé."); }
+    });
+    document.getElementById("pauseBtn").addEventListener("click", () => music.pause());
+  </script>
+</body>
+</html>
